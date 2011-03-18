@@ -19,4 +19,4 @@ class ModificationDateTimeField(ModificationDateTimeField):
         from south.modelsinspector import introspector
         field_class = "django.db.models.fields.DateTimeField"
         args, kwargs = introspector(self)
-        return (field_class, args, kwargs)        
+        return (field_class, args, kwargs)
