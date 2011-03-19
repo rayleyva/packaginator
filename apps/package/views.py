@@ -8,7 +8,7 @@ from django.contrib.auth.decorators import login_required
 from django.core.cache import cache
 from django.core.urlresolvers import reverse
 from django.db.models import Q, Count
-from django.http import HttpResponseRedirect, HttpResponse
+from django.http import HttpResponseRedirect, HttpResponse, HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404
 from django.template import RequestContext
 from django.template.loader import render_to_string
@@ -27,7 +27,10 @@ def repo_data_for_js():
 
 @login_required
 def add_package(request, template_name="package/package_form.html"):
-    
+
+    if not request.user.has_perm('package.add_package'):
+        return HttpResponseForbidden
+
     new_package = Package()
     form = PackageForm(request.POST or None, instance=new_package)
     

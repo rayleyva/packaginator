@@ -87,12 +87,14 @@
 
         <div id="home-borderlessbox">
             <h2>We need your help</h2>
+            {% if profile.can_add_package %}
             <p>
                 Know of any packages not listed here?  Add them now!  It's quick and easy.
             </p>
             <p>
                 <a class="large awesome forestgreen" href="{% url add_package %}">add package »</a>
             </p>
+            {% endif %}
             <p>
                 Or add a grid comparing the features of 2 or more similar packages.
             </p>

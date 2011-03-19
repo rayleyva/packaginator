@@ -32,7 +32,10 @@
         </div>
         <div id="package-listing">
             <h2>{% if packages.count %}Packages{% else %}No packages found{% endif %}</h2>
-            <p><a class="medium awesome forestgreen" href="{% url add_package %}">add package »</a>
+            <p>
+            {% if profile.can_add_package %}
+                <a class="medium awesome forestgreen" href="{% url add_package %}">add package »</a>
+            {% endif %}
                 <a href="{% url latest_packages %}">latest</a> <a href="{% url packages %}">all</a>
             </p>
             {% for package in packages %}
