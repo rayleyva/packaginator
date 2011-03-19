@@ -57,4 +57,17 @@ Example::
 
     LAUNCHPAD_CACHE_DIR = "/tmp/lp-cache"
 
+Permissions Settings
+====================
+
+Packaginator provides several ways to control who can make what changes to
+things like packages, features, and grids. By default, a Packaginator project
+is open to contributions from any registered user. If a given project would
+like more control over this, there are two settings that can be used.
+
+    RESTRICT_PACKAGE_EDITORS
+    RESTRICT_GRID_EDITORS
+
+
 .. _troubleshooting: troubleshooting.html    
+
