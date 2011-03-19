@@ -1,3 +1,4 @@
+from django.conf import settings
 from django.db import models
 from django.db.models import Q
 from django.utils.translation import ugettext_lazy as _
@@ -43,3 +44,20 @@ class Profile(ProfileBase):
             packages.extend(repo_packages)
         packages.sort(lambda a, b: cmp(a.title, b.title))
         return packages
+
+    # define permission properties as properties so we can access in templates
+
+    @property
+    def can_add_package(self):
+        if settings.RESTRICT_PACKAGE_EDITORS:
+            return self.user.has_perm('package.add_package')
+        # anyone can add
+        return True
+
+    @property
+    def can_edit_package(self):
+        if settings.RESTRICT_PACKAGE_EDITORS:
+            return self.user.has_perm('package.edit_package')
+        # anyone can edit
+        return True
+

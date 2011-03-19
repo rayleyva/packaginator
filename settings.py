@@ -274,6 +274,12 @@ PACKAGINATOR_HELP_TEXT = {
 
 PACKAGINATOR_SEARCH_PREFIX = "django"
 
+# if set to False (default) any auth user can add/modify packages
+# only django admins can delete
+RESTRICT_PACKAGE_EDITORS = False
+
+
+
 CELERYD_TASK_TIME_LIMIT = 300
 LAUNCHPAD_ACTIVE = False
 
