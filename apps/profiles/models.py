@@ -44,14 +44,14 @@ class Profile(ProfileBase):
 
     @property
     def can_add_package(self):
-        if settings.RESTRICT_PACKAGE_EDITORS:
+        if getattr(settings, 'RESTRICT_PACKAGE_EDITORS', False):
             return self.user.has_perm('package.add_package')
         # anyone can add
         return True
 
     @property
     def can_edit_package(self):
-        if settings.RESTRICT_PACKAGE_EDITORS:
+        if getattr(settings, 'RESTRICT_PACKAGE_EDITORS', False):
             return self.user.has_perm('package.edit_package')
         # anyone can edit
         return True
