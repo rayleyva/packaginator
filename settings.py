@@ -111,6 +111,7 @@ MIDDLEWARE_CLASSES = [
     "django_sorting.middleware.SortingMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
     "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
+    "profile.middleware.LazyProfileMiddleware",
 ]
 
 TEMPLATE_DIRS = [
@@ -277,6 +278,11 @@ PACKAGINATOR_SEARCH_PREFIX = "django"
 # if set to False (default) any auth user can add/modify packages
 # only django admins can delete
 RESTRICT_PACKAGE_EDITORS = False
+
+# if set to False (default) any auth user can add/modify grids
+# only django admins can delete
+RESTRICT_GRID_EDITORS = False
+
 
 
 
