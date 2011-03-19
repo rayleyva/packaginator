@@ -14,11 +14,6 @@ class Profile(ProfileBase):
     bitbucket_url = models.CharField(_("Bitbucket account"), null=True, blank=True, max_length=100)
     google_code_url = models.CharField(_("Google Code account"), null=True, blank=True, max_length=100)
 
-    class Meta:
-        permissions = (
-            ("is_moderator", "is_moderator"),
-        )
-        
     def url_for_repo(self, repo):
         """Return the profile's URL for a given repo.
         
