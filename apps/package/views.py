@@ -28,7 +28,7 @@ def repo_data_for_js():
 @login_required
 def add_package(request, template_name="package/package_form.html"):
 
-    if not request.user.has_perm('package.add_package'):
+    if not request.user.get_profile.can_add_package:
         return HttpResponseForbidden
 
     new_package = Package()
@@ -52,6 +52,9 @@ def add_package(request, template_name="package/package_form.html"):
 @login_required
 def edit_package(request, slug, template_name="package/package_form.html"):
     
+    if not request.user.get_profile.can_edit_package:
+        return HttpResponseForbidden
+
     package = get_object_or_404(Package, slug=slug)
     form = PackageForm(request.POST or None, instance=package)
     
