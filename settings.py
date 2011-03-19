@@ -111,7 +111,6 @@ MIDDLEWARE_CLASSES = [
     "django_sorting.middleware.SortingMiddleware",
     "pinax.middleware.security.HideSensistiveFieldsMiddleware",
     "django.contrib.flatpages.middleware.FlatpageFallbackMiddleware",
-    "profile.middleware.LazyProfileMiddleware",
 ]
 
 TEMPLATE_DIRS = [
@@ -139,6 +138,7 @@ TEMPLATE_CONTEXT_PROCESSORS = [
     "package.context_processors.used_packages_list",
     "homepage.context_processors.grid_tabs",
     "homepage.context_processors.current_path",
+    "profiles.context_processors.lazy_profile",
 ]
 
 PROJECT_APPS = [
