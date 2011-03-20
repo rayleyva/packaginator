@@ -56,3 +56,61 @@ class Profile(ProfileBase):
         # anyone can edit
         return True
 
+    # Grids
+    @property
+    def can_edit_grid(self):
+        if getattr(settings, 'RESTRICT_GRID_EDITORS', False):
+            return self.user.has_perm('grid.edit_grid')
+        return True
+
+    @property
+    def can_add_grid(self):
+        if getattr(settings, 'RESTRICT_GRID_EDITORS', False):
+            return self.user.has_perm('grid.add_grid')
+        return True
+
+    # Grid Features
+    @property
+    def can_add_grid_feature(self):
+        if getattr(settings, 'RESTRICT_GRID_EDITORS', False):
+            return self.user.has_perm('grid.add_feature')
+        return True
+
+    @property
+    def can_edit_grid_feature(self):
+        if getattr(settings, 'RESTRICT_GRID_EDITORS', False):
+            return self.user.has_perm('grid.edit_feature')
+        return True
+
+    @property
+    def can_delete_grid_feature(self):
+        if getattr(settings, 'RESTRICT_GRID_EDITORS', False):
+            return self.user.has_perm('grid.delete_feature')
+        return True
+
+    # Grid Packages
+    @property
+    def can_add_grid_package(self):
+        if getattr(settings, 'RESTRICT_GRID_EDITORS', False):
+            return self.user.has_perm('grid.add_package')
+        return True
+
+    @property
+    def can_edit_grid_package(self):
+        if getattr(settings, 'RESTRICT_GRID_EDITORS', False):
+            return self.user.has_perm('grid.edit_package')
+        return True
+
+    # Grid Element (cells in grid)
+    @property
+    def can_add_grid_element(self):
+        if getattr(settings, 'RESTRICT_GRID_EDITORS', False):
+            return self.user.has_perm('grid.add_element')
+        return True
+
+    @property
+    def can_edit_grid_element(self):
+        if getattr(settings, 'RESTRICT_GRID_EDITORS', False):
+            return self.user.has_perm('grid.edit_element')
+        return True
+
