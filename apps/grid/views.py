@@ -2,7 +2,7 @@ from django.db.models import Count
 from django.contrib.auth.decorators import login_required, permission_required
 from django.contrib.auth.models import User 
 from django.core.urlresolvers import reverse 
-from django.http import HttpResponseRedirect, Http404 
+from django.http import HttpResponseRedirect, Http404, HttpResponseForbidden
 from django.shortcuts import render_to_response, get_object_or_404 
 from django.template import RequestContext 
 
@@ -50,6 +50,9 @@ def grid_detail(request, slug, template_name="grid/grid_detail.html"):
 @login_required
 def add_grid(request, template_name="grid/add_grid.html"):
 
+    if not request.user.get_profile.can_add_grid:
+        return HttpResponseForbidden
+
     new_grid = Grid()
     form = GridForm(request.POST or None, instance=new_grid)    
 
@@ -64,6 +67,9 @@ def add_grid(request, template_name="grid/add_grid.html"):
         
 @login_required
 def edit_grid(request, slug, template_name="grid/edit_grid.html"):
+
+    if not request.user.get_profile.can_edit_grid:
+        return HttpResponseForbidden
 
     grid = get_object_or_404(Grid, slug=slug)
     form = GridForm(request.POST or None, instance=grid)
@@ -80,6 +86,9 @@ def edit_grid(request, slug, template_name="grid/edit_grid.html"):
         
 @login_required
 def add_feature(request, grid_slug, template_name="grid/add_feature.html"):
+
+    if not request.user.get_profile.can_add_grid_feature:
+        return HttpResponseForbidden
 
     grid = get_object_or_404(Grid, slug=grid_slug)
     feature = Feature()
@@ -104,6 +113,9 @@ def add_feature(request, grid_slug, template_name="grid/add_feature.html"):
 @login_required
 def edit_feature(request, id, template_name="grid/edit_feature.html"):
 
+    if not request.user.get_profile.can_edit_grid_feature:
+        return HttpResponseForbidden
+
     feature = get_object_or_404(Feature, id=id)
     form = FeatureForm(request.POST or None, instance=feature)
 
@@ -119,7 +131,8 @@ def edit_feature(request, id, template_name="grid/edit_feature.html"):
         
 @permission_required('grid.delete_feature')
 def delete_feature(request, id, template_name="grid/edit_feature.html"):
-
+    # do not need to check permission via profile because
+    # we default to being strict about deleting
     feature = get_object_or_404(Feature, id=id)
     Element.objects.filter(feature=feature).delete()
     feature.delete()
@@ -130,6 +143,8 @@ def delete_feature(request, id, template_name="grid/edit_feature.html"):
 @permission_required('grid.delete_gridpackage')
 def delete_grid_package(request, id, template_name="grid/edit_feature.html"):
 
+    # do not need to check permission via profile because
+    # we default to being strict about deleting
     package = get_object_or_404(GridPackage, id=id)
     Element.objects.filter(grid_package=package).delete()
     package.delete()
@@ -139,6 +154,9 @@ def delete_grid_package(request, id, template_name="grid/edit_feature.html"):
         
 @login_required
 def edit_element(request, feature_id, package_id, template_name="grid/edit_element.html"):
+
+    if not request.user.get_profile.can_edit_grid_element:
+        return HttpResponseForbidden
     
     feature = get_object_or_404(Feature, pk=feature_id)
     grid_package = get_object_or_404(GridPackage, pk=package_id)    
@@ -170,6 +188,10 @@ def edit_element(request, feature_id, package_id, template_name="grid/edit_eleme
 @login_required
 def add_grid_package(request, grid_slug, template_name="grid/add_grid_package.html"):
     """Add an existing package to this grid."""
+
+    if not request.user.get_profile.can_add_grid_package:
+        return HttpResponseForbidden
+
 
     grid = get_object_or_404(Grid, slug=grid_slug)
     grid_package = GridPackage()
@@ -206,6 +228,9 @@ def add_grid_package(request, grid_slug, template_name="grid/add_grid_package.ht
 def add_new_grid_package(request, grid_slug, template_name="package/package_form.html"):
     """Add a package to a grid that isn't yet represented on the site."""
     
+    if not request.user.get_profile.can_add_grid_package:
+        return HttpResponseForbidden
+
     grid = get_object_or_404(Grid, slug=grid_slug)
     
     new_package = Package()
