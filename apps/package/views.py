@@ -29,7 +29,8 @@ def repo_data_for_js():
 def add_package(request, template_name="package/package_form.html"):
 
     if not request.user.get_profile().can_add_package:
-        return HttpResponseForbidden
+        return HttpResponseForbidden("permission denied")
+
 
     new_package = Package()
     form = PackageForm(request.POST or None, instance=new_package)
@@ -53,7 +54,7 @@ def add_package(request, template_name="package/package_form.html"):
 def edit_package(request, slug, template_name="package/package_form.html"):
     
     if not request.user.get_profile().can_edit_package:
-        return HttpResponseForbidden
+        return HttpResponseForbidden("permission denied")
 
     package = get_object_or_404(Package, slug=slug)
     form = PackageForm(request.POST or None, instance=package)
