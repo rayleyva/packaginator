@@ -237,7 +237,7 @@
                 
                 {% if request.user.is_authenticated %}
                     // Handle element edit redirects
-                {% profile.can_edit_grid_element %}
+                {% if profile.can_edit_grid_element %}
                     {% for feature in features %}
                         {% for grid_package in grid_packages %}
                         {% with elements|hash:feature.pk|hash:grid_package.pk as element %}
