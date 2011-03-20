@@ -74,7 +74,7 @@ def grid_detail_feature(request, slug, feature_id, bogus_slug, template_name="gr
 @login_required
 def add_grid(request, template_name="grid/add_grid.html"):
 
-    if not request.user.get_profile.can_add_grid:
+    if not request.user.get_profile().can_add_grid:
         return HttpResponseForbidden
 
     new_grid = Grid()
@@ -92,7 +92,7 @@ def add_grid(request, template_name="grid/add_grid.html"):
 @login_required
 def edit_grid(request, slug, template_name="grid/edit_grid.html"):
 
-    if not request.user.get_profile.can_edit_grid:
+    if not request.user.get_profile().can_edit_grid:
         return HttpResponseForbidden
 
     grid = get_object_or_404(Grid, slug=slug)
@@ -111,7 +111,7 @@ def edit_grid(request, slug, template_name="grid/edit_grid.html"):
 @login_required
 def add_feature(request, grid_slug, template_name="grid/add_feature.html"):
 
-    if not request.user.get_profile.can_add_grid_feature:
+    if not request.user.get_profile().can_add_grid_feature:
         return HttpResponseForbidden
 
     grid = get_object_or_404(Grid, slug=grid_slug)
@@ -137,7 +137,7 @@ def add_feature(request, grid_slug, template_name="grid/add_feature.html"):
 @login_required
 def edit_feature(request, id, template_name="grid/edit_feature.html"):
 
-    if not request.user.get_profile.can_edit_grid_feature:
+    if not request.user.get_profile().can_edit_grid_feature:
         return HttpResponseForbidden
 
     feature = get_object_or_404(Feature, id=id)
@@ -179,7 +179,7 @@ def delete_grid_package(request, id, template_name="grid/edit_feature.html"):
 @login_required
 def edit_element(request, feature_id, package_id, template_name="grid/edit_element.html"):
 
-    if not request.user.get_profile.can_edit_grid_element:
+    if not request.user.get_profile().can_edit_grid_element:
         return HttpResponseForbidden
     
     feature = get_object_or_404(Feature, pk=feature_id)
@@ -213,7 +213,7 @@ def edit_element(request, feature_id, package_id, template_name="grid/edit_eleme
 def add_grid_package(request, grid_slug, template_name="grid/add_grid_package.html"):
     """Add an existing package to this grid."""
 
-    if not request.user.get_profile.can_add_grid_package:
+    if not request.user.get_profile().can_add_grid_package:
         return HttpResponseForbidden
 
 
@@ -252,7 +252,7 @@ def add_grid_package(request, grid_slug, template_name="grid/add_grid_package.ht
 def add_new_grid_package(request, grid_slug, template_name="package/package_form.html"):
     """Add a package to a grid that isn't yet represented on the site."""
     
-    if not request.user.get_profile.can_add_grid_package:
+    if not request.user.get_profile().can_add_grid_package:
         return HttpResponseForbidden
 
     grid = get_object_or_404(Grid, slug=grid_slug)
