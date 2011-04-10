@@ -43,7 +43,7 @@ urlpatterns = patterns("",
 #  or other grid detail related code.  This is @sontek's new grid detail template.
 #  The grid_detail2.html file will replace grid_detail.html once it is fully stable
 #  in all browsers and production-ready.
-#        kwargs  = {'template_name': 'grid/grid_detail2.html'},
+        kwargs  = {'template_name': 'grid/grid_detail2.html'},
     ), 
     
     url(
