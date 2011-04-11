@@ -6,3 +6,5 @@ lp-cache
 coverage
 docs/_build
 docs/_static
+media/pinax
+media/uni_form
